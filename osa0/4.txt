@@ -1,0 +1,16 @@
+selain -> palvelin (POST, https://fullstack-exampleapp.herokuapp.com/new_note)  # Selain lähettää note-datan POST metodia käyttäen
+selain -> palvelin (GET, https://fullstack-exampleapp.herokuapp.com/notes)      # Selain pyytää sivun HTML-koodin uudelleen palvelimelta
+
+# Selaimen käydessä HTML-tiedostoa läpi vastaan tulee <head> osioon linkatun CSS-tiedoston osoite palvelimella.
+
+selain -> palvelin (GET, https://fullstack-exampleapp.herokuapp.com/main.css)   # Selain pyytää CSS-tiedoston 
+
+# <head> osiosta selain löytää myös Javascript tiedoston linkin.
+
+selain -> palvelin (GET, https://fullstack-exampleapp.herokuapp.com/main.js)    # Selain pyytää Javascript-tiedoston
+
+# Selain suorittaa js koodin, joka pyytää vuorostaan JSON muotoista dataa palvelimelta
+
+selain -> palvelin (GET, https://fullstack-exampleapp.herokuapp.com/data.json)  # Selain pyytää JSON-tiedoston JS:n pyynnöstä
+
+# Datan saavuttua JS koodin tapahtumankäsittelijä herää ja koodaa JSON-tiedoston sisältämän datan HTML listaksi ja lisää listan DOM API:a käyttäen HTML:ään 
