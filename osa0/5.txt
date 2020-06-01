@@ -1,0 +1,17 @@
+# SPA version tapahtumat kuvattuna kun käyttäjä lataa sivun. Tapahtumat käsittelevät samoja tiedostoja lukuunottamatta eri HTML sivua ja JS tiedostoa.
+
+selain -> palvelin (GET, https://fullstack-exampleapp.herokuapp.com/spa)         # Selain pyytää HTML-datan palvelimelta
+
+# Selaimen käydessä HTML-tiedostoa läpi vastaan tulee <head> osioon linkatun CSS-tiedoston osoite palvelimella.
+
+selain -> palvelin (GET, https://fullstack-exampleapp.herokuapp.com/main.css)    # Selain pyytää CSS-tiedoston 
+
+# <head> osiosta selain löytää myös Javascript tiedoston linkin.
+
+selain -> palvelin (GET, https://fullstack-exampleapp.herokuapp.com/spa.js)      # Selain pyytää Javascript-tiedoston
+
+# Selain suorittaa js koodin, joka pyytää JSON muotoista dataa palvelimelta
+
+selain -> palvelin (GET, https://fullstack-exampleapp.herokuapp.com/data.json)   # Selain pyytää JSON-tiedoston JS:n pyynnöstä
+
+# JS:n tapahtumankäsittelijä lisää note datan HTML:ään DOM API:a käyttäen
