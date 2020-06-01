@@ -1,0 +1,15 @@
+# Uuden noten tallentaminen SPA sivulla kuvattuna.
+
+# Lomakken tallenna nappia painetaan.
+
+# JS estää lomakkeen oletuskäyttäytymisen ts. estää datan lähetyksen ja HTML sivun uudelleenohjauksen. 
+
+# JS lisää uuden noten HTML:ään DOM:ia käyttäen.
+
+selain -> palvelin (POST, https://fullstack-exampleapp.herokuapp.com/new_note_spa)  # Selain lähettää JSON tyyppistä dataa POST metodia käyttäen (JS:n pyytämänä)
+
+palvelin <- selain (201) # palvelin vastaa koodilla 201 created
+
+
+
+
