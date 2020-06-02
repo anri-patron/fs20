@@ -1,3 +1,7 @@
+# Uuden noten tallentaminen kuvattuna.
+
+# Tallenna nappia painetaan.
+
 selain -> palvelin (POST, https://fullstack-exampleapp.herokuapp.com/new_note)  # Selain lähettää note-datan POST metodia käyttäen
 selain -> palvelin (GET, https://fullstack-exampleapp.herokuapp.com/notes)      # Selain pyytää sivun HTML-koodin uudelleen palvelimelta
 
