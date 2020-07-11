@@ -7,6 +7,10 @@ const Button = ({handleClick, text}) => (
   </button>
 )
 
+const StatisticLine = ({text, value}) => (
+  <p>{text} {value}</p>
+)
+
 const Statistics = ({good, neutral, bad, all}) => {
   // tarkistetaan onko palautetta annettu 
   if (all === 0) {
@@ -17,12 +21,12 @@ const Statistics = ({good, neutral, bad, all}) => {
   return (
     <div>
     <h2>Statistics</h2>
-    <p>good {good}</p>
-    <p>neutral {neutral}</p>
-    <p>bad {bad}</p>
-    <p>all {all}</p>
-    <p>average {(good - bad)/all}</p>
-    <p>positive {good/all}</p>
+    <StatisticLine text="good" value ={good} />
+    <StatisticLine text="neutral" value ={neutral} />
+    <StatisticLine text="bad" value ={bad} />
+    <StatisticLine text="all" value ={all} />
+    <StatisticLine text="average" value ={(good - bad)/all} />
+    <StatisticLine text="positive" value ={good/all} />
     </div>
   )
 }
