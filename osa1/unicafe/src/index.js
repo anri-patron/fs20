@@ -8,6 +8,12 @@ const Button = ({handleClick, text}) => (
 )
 
 const Statistics = ({good, neutral, bad, all}) => {
+  // tarkistetaan onko palautetta annettu 
+  if (all === 0) {
+    return (
+    <p>No feedback given</p>
+    )
+  }
   return (
     <div>
     <h2>Statistics</h2>
