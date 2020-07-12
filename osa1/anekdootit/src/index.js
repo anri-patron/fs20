@@ -9,19 +9,29 @@ const Button = ({onClick, text}) => (
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+  const [points, setPoints] = useState(new Array(6).fill(0))
 
-  // luodaan satunnaisluku 0 -> 6 väliltä ja asetetaan se uudeksi selected arvoksi
+  // luodaan satunnaisluku 0 -> 5 väliltä ja asetetaan se uudeksi selected arvoksi
   const handleSelected = () => {
     const i = Math.floor(Math.random() * 6)
     console.log("anekdootti nro: " + i)
     setSelected(i)
   }
 
+  const handlePoints = () => {
+    const copy = {...points}
+    copy[selected] += 1
+    setPoints(copy)
+    console.log(points)
+  }
+
   return (
     <div>
-      {props.anecdotes[selected]}
+      <p>{props.anecdotes[selected]}</p>
+      <p>has {points[selected]} points</p>
       <div>
       <Button onClick={handleSelected} text='next anecdote'></Button>
+      <Button onClick={handlePoints} text='vote anecdote'></Button>
       </div>
     </div>
   )
