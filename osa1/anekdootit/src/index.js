@@ -1,12 +1,28 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const Button = ({onClick, text}) => (
+  <button onClick={onClick}>
+    {text}
+  </button>
+)
+
 const App = (props) => {
   const [selected, setSelected] = useState(0)
+
+  // luodaan satunnaisluku 0 -> 6 väliltä ja asetetaan se uudeksi selected arvoksi
+  const handleSelected = () => {
+    const i = Math.floor(Math.random() * 6)
+    console.log("anekdootti nro: " + i)
+    setSelected(i)
+  }
 
   return (
     <div>
       {props.anecdotes[selected]}
+      <div>
+      <Button onClick={handleSelected} text='next anecdote'></Button>
+      </div>
     </div>
   )
 }
