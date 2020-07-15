@@ -1,9 +1,9 @@
 import React from 'react'
 
 const Header = ({course}) => (
-    <h1>
+    <h2>
         {course}
-    </h1>
+    </h2>
 )
 
   
@@ -33,13 +33,18 @@ const Header = ({course}) => (
     return (<b>total of {sum} exercises</b>)
   }
 
-const Course = ({course}) => {
-    console.log("course: ", course)
+const Course = ({courses}) => {
+    console.log('courses: ', courses)
     return (
     <div>
-      <Header course={course.name}></Header>
-      <Content parts={course.parts}></Content>
-      <Total parts={course.parts}></Total>
+        <h1>Web development curriculum</h1>
+        {courses.map((course, i) => 
+        <div key={course.id}>
+            <Header course={course.name}></Header>
+            <Content parts={course.parts}></Content>
+            <Total parts={course.parts}></Total>
+        </div>
+        )}
     </div>
     )
 }
