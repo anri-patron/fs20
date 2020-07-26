@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import PhoneNumbers from './components/PhoneNumbers'
+import personService from './services/persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -11,15 +11,13 @@ const App = () => {
   const [filter, setNewFilter] = useState('')
   const [showAll, setShowAll] = useState(true)
 
-  // haetaan numeroita palvelimelta
+  // haetaan numerot palvelimelta
   useEffect(() => {
-    console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
-      })
+    personService
+    .getAll()
+    .then(initialNumbers => {
+      setPersons(initialNumbers)
+    })
   }, [])
 
   return (
@@ -29,7 +27,7 @@ const App = () => {
       <h2>Add a new</h2>
       <PersonForm persons={persons} setPersons={setPersons} newName={newName} setNewName={setNewName} newNumber={newNumber} setNewNumber={setNewNumber} />
       <h2>Numbers</h2>
-      <PhoneNumbers persons={persons} filter={filter} showAll={showAll} />
+      <PhoneNumbers persons={persons} filter={filter} showAll={showAll} setPersons={setPersons} />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios'
+import personService from '../services/persons'
 
 const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber }) => {
 
@@ -9,21 +9,40 @@ const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNe
     // tarkistetaan ettei lisättävä nimi ole jo puhelinluettelossa
     const i = persons.findIndex(person => person.name === newName)
     if (i !== -1) {
-      window.alert(`${newName} is already added to phonebook`)
+      if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+        console.log('Replace number')
+        const person = persons.find(p => p.name === newName)
+        console.log('person:', person)
+        const newPerson = { ...person, number: newNumber }
+        console.log('uusi person:', newPerson)
+
+      // päivitetään person
+        personService
+      .update(newPerson.id, newPerson)
+      .then(returnedPerson => {
+        setPersons(persons.map(p => p.id !== newPerson.id ? p : returnedPerson))
+      })
+      .catch(error => {
+        alert(`The number was already deleted, sorry about that`)
+        setPersons(persons.filter(p => p.id !== newPerson.id))
+      })
+      } else console.log('cancel replacing')
+
     } else {
       const newObject = {
         name: newName,
-        number: newNumber
+        number: newNumber,
+        id: persons.length + 1,
       }
       // upataan uusi entry serverille
-      axios
-        .post('http://localhost:3001/persons', newObject)
-        .then(response => {
-          console.log(response)
-          setPersons(persons.concat(newObject))
-          setNewName('')
-          setNewNumber('')
-        })
+      personService
+      .create(newObject)
+      .then(returnedPerson => {
+        console.log('luotiin', returnedPerson)
+        setPersons(persons.concat(newObject))
+        setNewName('')
+        setNewNumber('')
+      })
     }
   }
 
