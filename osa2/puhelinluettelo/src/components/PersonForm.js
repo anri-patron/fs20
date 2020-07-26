@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 
 const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber }) => {
 
@@ -14,9 +15,15 @@ const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNe
         name: newName,
         number: newNumber
       }
-      setPersons(persons.concat(newObject))
-      setNewName('')
-      setNewNumber('')
+      // upataan uusi entry serverille
+      axios
+        .post('http://localhost:3001/persons', newObject)
+        .then(response => {
+          console.log(response)
+          setPersons(persons.concat(newObject))
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
 
