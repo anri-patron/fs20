@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Weater from './components/Weather'
 
 function App() {
   const [countries, setCountries] = useState([])
   const [filter, setNewFilter] = useState('')
   const [hideAll, setHideAll] = useState(true)
-  const [weather, setWeather] = useState([])
-  
-  const api_key = process.env.REACT_APP_API_KEY
 
   useEffect(() => {
     axios
@@ -43,31 +39,6 @@ function App() {
     setNewFilter(a.toLowerCase())
   }
 
-  /*
-  *
-  *
-  * Tee oma componentti ja hae siellä kaupungin sää.
-  * 
-  * 
-  * 
-  * 
-  *
-  const Weater = ({country}) => {
-      useEffect(() => {
-        if (weather.length === 0) {
-        axios
-          .get(`https://api.openweathermap.org/data/2.5/weather?q=${country}&appid=${api_key}`)
-          .then(response => {
-            console.log('promise fulfilled')
-            console.log(response.data)
-            setWeather(response.data)
-            console.log("sää:", response.data.weather[0].main)
-          })
-        }
-      }, [])
-    return (<p>weather in {country} is {}</p>)
-  }*/
-
   const Countries = () => {
     const c = countries.filter(country => country.name.toLowerCase().includes(filter)) 
 
@@ -87,7 +58,6 @@ function App() {
             {c[0].languages.map((country, i) => <li key={i}>{country.name}</li>)}
           </ul>
           <img src={c[0].flag} alt="country flag" width="10%" height="10%"></img>
-          <Weater country={c[0].name} weather={weather} setWeather={setWeather} api_key={api_key}/>
         </div>
       )
     } else {
