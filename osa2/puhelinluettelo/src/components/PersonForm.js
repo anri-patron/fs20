@@ -1,7 +1,7 @@
 import React from 'react'
 import personService from '../services/persons'
 
-const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber }) => {
+const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNewNumber, setNotificationMsg, setErrorMsg}) => {
 
   const addPhoneNumber = (event) => {
     event.preventDefault()
@@ -16,14 +16,22 @@ const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNe
         const newPerson = { ...person, number: newNumber }
         console.log('uusi person:', newPerson)
 
-      // päivitetään person
+      // päivitetään person, tässä on bugi: sisäisen tilan henkilön id ei muodostu ennen kuin lisäyksen jälkeen on ladattu sivu uudestaan.
+      // siksi jos yrittää päivittää juuri luotua henkilö saa aikaan 404:n
         personService
       .update(newPerson.id, newPerson)
       .then(returnedPerson => {
+        setNotificationMsg(`Updated ${newName}`)
+        setTimeout(() => {
+          setNotificationMsg(null)
+        }, 2000)
         setPersons(persons.map(p => p.id !== newPerson.id ? p : returnedPerson))
       })
       .catch(error => {
-        alert(`The number was already deleted, sorry about that`)
+        setErrorMsg(`${newName} has already been deleted from server.`)
+        setTimeout(() => {
+          setErrorMsg(null)
+        }, 4000)
         setPersons(persons.filter(p => p.id !== newPerson.id))
       })
       } else console.log('cancel replacing')
@@ -32,13 +40,17 @@ const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNe
       const newObject = {
         name: newName,
         number: newNumber,
-        id: persons.length + 1,
+        //id: persons.length + 1,
       }
       // upataan uusi entry serverille
       personService
       .create(newObject)
       .then(returnedPerson => {
         console.log('luotiin', returnedPerson)
+        setNotificationMsg(`Added ${newObject.name}`)
+        setTimeout(() => {
+          setNotificationMsg(null)
+        }, 2000)
         setPersons(persons.concat(newObject))
         setNewName('')
         setNewNumber('')
