@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+app.use(express.json())
 
 let persons = [
     {
@@ -53,12 +54,51 @@ app.get('/api/persons/:id', (req, res) => {
     }
 })
 
+// generoi idn väliltä 0 -> 9999
+const generateId = () => {
+    return Math.floor(Math.random() * Math.floor(10000))
+}
+
+app.post('/api/persons', (req, res) => {
+    console.log('post sisältö:', req.body)
+    const body = req.body
+    // tarkistetaan että nimi on annettu
+    if (!body.name) {
+        return res.status(400).json({
+            error: 'name missing'
+        })
+    }
+    // tarkistetaan samoin että numero on annettu
+    if (!body.number) {
+        return res.status(400).json({
+            error: 'number missing'
+        })
+    }
+
+    const found = persons.find(p => p.name === body.name)
+    if (found) {
+        return res.status(400).json({
+            error: 'name must be unique'
+        })
+    }
+
+    const newPerson = {
+        name: body.name,
+        number: body.number,
+        id: generateId(),
+    }
+
+    persons = persons.concat(newPerson)
+
+    res.json(newPerson)
+})
+
 app.delete('/api/persons/:id', (req, res) => {
     const id = Number(req.params.id)
     console.log('poistetaan id:llä:', id)
     persons = persons.filter(p => p.id !== id)
     res.status(204).end()
-  })
+})
 
 const PORT = 3001
 app.listen(PORT, () => {
