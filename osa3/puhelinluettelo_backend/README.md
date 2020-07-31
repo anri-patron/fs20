@@ -1,1 +1,1 @@
-https://powerful-scrubland-62343.herokuapp.com/api/persons
+https://powerful-scrubland-62343.herokuapp.com/
