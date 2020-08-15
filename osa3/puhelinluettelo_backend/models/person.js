@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+mongoose.set('useFindAndModify', false)
 
 const url = process.env.MONGODB_URI
 console.log('connecting to', url)
@@ -24,6 +25,6 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     }
   })
   
-  const Person = mongoose.model('Person', personSchema)
+  //const Person = mongoose.model('Person', personSchema)
 
 module.exports = mongoose.model('Person', personSchema)

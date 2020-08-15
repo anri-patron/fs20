@@ -15,9 +15,6 @@ const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNe
         console.log('person:', person)
         const newPerson = { ...person, number: newNumber }
         console.log('uusi person:', newPerson)
-
-      // päivitetään person, tässä on bugi: sisäisen tilan henkilön id ei muodostu ennen kuin lisäyksen jälkeen on ladattu sivu uudestaan.
-      // siksi jos yrittää päivittää juuri luotua henkilö saa aikaan 404:n
         personService
       .update(newPerson.id, newPerson)
       .then(returnedPerson => {
@@ -26,6 +23,8 @@ const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNe
           setNotificationMsg(null)
         }, 2000)
         setPersons(persons.map(p => p.id !== newPerson.id ? p : returnedPerson))
+        setNewName('')
+        setNewNumber('')
       })
       .catch(error => {
         setErrorMsg(`${newName} has already been deleted from server.`)
@@ -51,7 +50,7 @@ const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNe
         setTimeout(() => {
           setNotificationMsg(null)
         }, 2000)
-        setPersons(persons.concat(newObject))
+        setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
       })
