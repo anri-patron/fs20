@@ -54,6 +54,13 @@ const PersonForm = ({ persons, setPersons, newName, setNewName, newNumber, setNe
         setNewName('')
         setNewNumber('')
       })
+      .catch(error => {
+        setErrorMsg(error.response.data.error)
+        setTimeout(() => {
+          setErrorMsg(null)
+        }, 6000)
+        console.log(error.response.data)
+      })
     }
   }
 
