@@ -28,17 +28,17 @@ describe('most likes', () => {
 
     test('favoriteBlog palauttaa oikean olion testijoukolla', () => {
         const result = listHelper.favoriteBlog(testSet)
-        expect(result).toEqual({ author: "Edsger W. Dijkstra", blogs: 2 })
+        expect(result).toEqual({ title: "Canonical string reduction", author: "Edsger W. Dijkstra", likes: 12})
     })
 
     test('favoriteBlog palauttaa ensimmäisen olion testijoukolla 2', () => {
         const result = listHelper.favoriteBlog(testSet2)
-        expect(result).toEqual({ author: "Edsger W. Dijkstra", blogs: 2 })
+        expect(result).toEqual({ title: "Canonical string reduction", author: "Edsger W. Dijkstra", likes: 12})
     })
 
     test('favoriteBlog palauttaa olion testijoukolla, jossa on vain 1 blogi', () => {
         const result = listHelper.favoriteBlog(singleBlog)
-        expect(result).toEqual({ author: "Michael Chan", blogs: 1})
+        expect(result).toEqual({ title: "React patterns", author: "Michael Chan", likes: 7})
     })
 
     test('favoriteBlog palauttaa NaN tyhjällä joukolla', () => {

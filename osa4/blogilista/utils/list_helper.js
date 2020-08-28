@@ -15,8 +15,7 @@ const favoriteBlog = (blogs) => {
 
     // palautetaan indeksiä vastaava olio tai NaN jos oli tyhjä array syötteenä
     if (maxIndex >= 0) {
-        //const b = blogs.map(blog => blog.author).filter(a => a === blogs[maxIndex].author)
-        return { "author": blogs[maxIndex].author, "blogs": blogs.map(blog => blog.author).filter(a => a === blogs[maxIndex].author).length}
+        return {"title": blogs[maxIndex].title, "author": blogs[maxIndex].author, "likes": blogs[maxIndex].likes}
     } else return NaN
 }
 
