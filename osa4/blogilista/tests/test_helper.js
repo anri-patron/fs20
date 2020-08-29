@@ -9,11 +9,11 @@ const testBlogs = [
     {title: "Type wars", author: "Robert C. Martin", url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html", likes: 2}
 ]
 
-const ammountOfBlogs = async () => {
+const blogsInDb = async () => {
     const blogs = await Blog.find({})
     return blogs.map(blog => blog.toJSON())
   }
 
 module.exports = {
-    testBlogs, ammountOfBlogs
+    testBlogs, blogsInDb
   }
