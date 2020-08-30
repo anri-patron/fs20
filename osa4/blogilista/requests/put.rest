@@ -1,7 +1,9 @@
-PUT  http://localhost:3001/api/notes/5f31188003abc58ad639a724
+PUT  http://localhost:3003/api/blogs/5f4b8bd66f2d49ffcde31937
 Content-Type: application/json
 
 {
-    "content": "new note",
-    "important": false
+    "title": "Test",
+    "author": "Tester",
+    "url": "https://testurl.com/",
+    "likes": 1
 }
